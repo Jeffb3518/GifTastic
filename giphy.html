@@ -1,0 +1,53 @@
+<html>
+<head>
+	<title>Movie Stars</title>
+	<style type="text/css">
+		button, div, form, input {
+			margin: 10px;
+		}
+	</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Actor Search</h1>
+
+  <!-- Rendered Buttons will get Dumped Here  -->
+  <div id="buttonsView"></div>
+
+  <form id="actor-form">
+    <label for="actor-input">Select an Actor</label>
+    <input type="text" id="actor-input"><br>
+    
+    <!-- Button triggers new movie to be added -->
+    <input id="addActor" type="submit" value="Select an Actor">
+  </form>
+
+
+  <!-- Movies will Get Dumped Dere -->
+  <div id="actorView"></div>
+
+<script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
+<script type="text/javascript">
+
+var topics = ['Tom Hanks', 'Tom Cruise', 'Tim Allen', 'Jennifer Lawrence', 'Scarlett Johansson', 'Natalie Portman'];
+
+var APIKey = "dc6zaTOxFJmzC";
+
+function displayActor() {
+
+  var actor = $(this).attr('data-name');
+  var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + actor + "&r=&limit=10&rating="+ APIKey;
+
+  console.log("topics");
+
+  $.ajax({url: queryURL, method: 'GET'}).done(function(response) {
+
+  });
+
+};
+
+
+</script>
+</body>
+</html>
