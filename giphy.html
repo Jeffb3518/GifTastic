@@ -37,15 +37,53 @@ var APIKey = "dc6zaTOxFJmzC";
 function displayActor() {
 
   var actor = $(this).attr('data-name');
-  var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + actor + "&r=&limit=10&rating="+ APIKey;
+  var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topics[0] + "&api_key=" +APIKey;
 
-  console.log("topics");
+  $.ajax({url: queryURL, method: 'GET'})
+  .done(function(response) {
 
-  $.ajax({url: queryURL, method: 'GET'}).done(function(response) {
+    var actorDiv = $('<div class="actor">');
+
+    actorDiv.append($("<p>".html("Rating: " + response.rating)));
+
+    var image = $('<img>').attr("src", response.q);
+
+    actorDiv.append(image);
+
+    $('#actorView').prepend(actorDiv);
 
   });
 
 };
+
+function renderButtons () {
+  $('#buttonsView').empty();
+
+  for (var i = 0; i < topics.length; i++) {
+
+    var a = $('<button>')
+    a.addClass('actor');
+    a.attr('data-name', topics[i]);
+    a.text(topics[i]);
+    $('#buttonsView').append(a);
+  }
+}
+
+$('#addActor').on('click', function() {
+
+  var actor = $('#actor-input').val().trim();
+
+  topics.push(actor);
+
+  renderButtons();
+
+  return false;
+})
+
+$(document).on('click', '.actor', displayActor);
+
+renderButtons();
+
 
 
 </script>
