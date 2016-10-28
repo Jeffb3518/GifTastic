@@ -44,13 +44,18 @@ function displayActor() {
 
     var actorDiv = $('<div class="actor">');
 
-    actorDiv.append($("<p>".html("Rating: " + response.rating)));
+    actorDiv.append($("<p>").html("Rating: " + response.rating));
 
-    var image = $('<img>').attr("src", response.q);
+    var imageURL = response.data.image_original_url
 
-    actorDiv.append(image);
+    var actorImage = $("<img>");
+
+    actorImage.attr('src', imageURL);
+    actorImage.attr('alt', 'actor image');
 
     $('#actorView').prepend(actorDiv);
+    $('#actorView').prepend(actorImage);
+
 
   });
 
