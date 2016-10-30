@@ -10,13 +10,13 @@
 <body>
 
 <div class="container">
-  <h1>Actor Search</h1>
+  <h1><strong>Actor Search</strong></h1>
 
   <!-- Rendered Buttons will get Dumped Here  -->
   <div id="buttonsView"></div>
 
   <form id="actor-form">
-    <label for="actor-input">Select an Actor</label>
+    <label for="actor-input"><strong>Select an Actor</strong></label>
     <input type="text" id="actor-input"><br>
     
     <!-- Button triggers new movie to be added -->
@@ -37,29 +37,48 @@ var APIKey = "dc6zaTOxFJmzC";
 function displayActor() {
 
   var actor = $(this).attr('data-name');
-  var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topics[0] + "&api_key=" +APIKey;
-
+  var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + actor + "&api_key=" +APIKey;
+    console.log(actor)
   $.ajax({url: queryURL, method: 'GET'})
   .done(function(response) {
 
-    var actorDiv = $('<div class="actor">');
+    for (var i = 0; i < results.length; i++) {
+      if (results[i].limit == 10) {
+      }
+        else{
+          var actorDiv = $('<div class="actor">');
+          var limit = results[i].limit
+          actorDiv.append($("<p>").text("Rating: " + response.rating));
 
-    actorDiv.append($("<p>").html("Rating: " + response.rating));
-
-    var imageURL = response.data.image_original_url
-
-    var actorImage = $("<img>");
-
-    actorImage.attr('src', imageURL);
-    actorImage.attr('alt', 'actor image');
-
+          var actorImage = $("<img>");
+          var imageURL = response.data.image_original_url
+          actorImage.attr('src', imageURL);
+          actorImage.attr('alt', 'actor image');
+        };
+      }
+    
     $('#actorView').prepend(actorDiv);
     $('#actorView').prepend(actorImage);
 
 
   });
-
+$('img').on('click', toggleStill);
 };
+
+//this should freeze pictures
+function toggleStill(){
+
+  var state   =$(this).attr('data-state');
+    if(state == 'still'){
+      $(this).attr('src', $(this).data('animate'));
+      $(this).attr('data-state', 'animate');
+    } else {
+      $(this).attr('src', $(this).data('still'));
+      $(this).attr('data-state', 'still');
+    }
+    // console.log($(this).attr("src"));
+
+  }
 
 function renderButtons () {
   $('#buttonsView').empty();
@@ -74,6 +93,7 @@ function renderButtons () {
   }
 }
 
+//add new search item to array
 $('#addActor').on('click', function() {
 
   var actor = $('#actor-input').val().trim();
@@ -81,6 +101,7 @@ $('#addActor').on('click', function() {
   topics.push(actor);
 
   renderButtons();
+
 
   return false;
 })
