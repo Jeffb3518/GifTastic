@@ -42,6 +42,7 @@ function displayActor() {
   $.ajax({url: queryURL, method: 'GET'})
   .done(function(response) {
 
+//retrieve the gifs (hopefully)
     for (var i = 0; i < results.length; i++) {
       if (results[i].limit == 10) {
       }
