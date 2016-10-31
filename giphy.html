@@ -63,12 +63,12 @@ function displayActor() {
   .done(function(response) {
 
 //retrieve the gifs (hopefully)
-    for (var i = 0; i < results.length; i++) {
-      if (results[i].limit == 10) {
+    for (var i = 0; i < 5; i++) {
+      if ([i] == 10) {
       }
         else{
           var actorDiv = $('<div class="actor">');
-          var limit = results[i].limit
+          // var limit = results[i].limit
           actorDiv.append($("<p>").text("Rating: " + response.rating));
 
           var actorImage = $("<img>");
