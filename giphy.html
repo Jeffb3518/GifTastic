@@ -64,27 +64,30 @@ function displayActor() {
 
 //retrieve the gifs (hopefully)
     for (var i = 0; i < 5; i++) {
-      if ([i] == 10) {
+     
       }
-        else{
-          var actorDiv = $('<div class="actor">');
-          // var limit = results[i].limit
+        
+          var actorDiv = $('<div class="actorDiv">');
           actorDiv.append($("<p>").text("Rating: " + response.rating));
 
           var actorImage = $("<img>");
-          var imageURL = response.data.image_original_url
+          var imageURL = response.data[i].image_original_url;
           actorImage.attr('src', imageURL);
           actorImage.attr('alt', 'actor image');
-        };
-      }
+        
+      });
+
+        actorDiv.append(actorImage);
+        $('#actorView').append(actorDiv);
+
     
-    $('#actorView').prepend(actorDiv);
-    $('#actorView').prepend(actorImage);
+    // $('#actorView').prepend(actorDiv);
+    // $('#actorView').prepend(actorImage);
 
 
-  });
+  };
 $('img').on('click', toggleStill);
-};
+// };
 
 //this should freeze pictures
 function toggleStill(){
