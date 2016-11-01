@@ -58,42 +58,35 @@ function displayActor() {
 
   var actor = $(this).attr('data-name');
   var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + actor + "&api_key=" +APIKey;
-    console.log(actor)
+    
   $.ajax({url: queryURL, method: 'GET'})
   .done(function(response) {
 
+
 //retrieve the gifs (hopefully)
-    for (var i = 0; i < 5; i++) {
-     
-      }
-        
-          var actorDiv = $('<div class="actorDiv">');
-          actorDiv.append($("<p>").text("Rating: " + response.rating));
+    for (var i = 0; i < 10; i++) {
+      
+      var actorDiv = $('<div class="actorDiv">');
+      actorDiv.append($("<p>").text("Rating: " + response.data[i].rating));
 
-          var actorImage = $("<img>");
-          var imageURL = response.data[i].image_original_url;
-          actorImage.attr('src', imageURL);
-          actorImage.attr('alt', 'actor image');
-        
-      });
+      var actorImage = $("<img>");
+      var imageURL = response.data[i].images.fixed_height.url;
+      console.log(imageURL);
+      actorImage.attr('src', imageURL);
+      actorImage.attr('alt', 'actor image');
+      actorDiv.append(actorImage);
+      $('#actorView').append(actorDiv);
+};
 
-        actorDiv.append(actorImage);
-        $('#actorView').append(actorDiv);
-
-    
-    // $('#actorView').prepend(actorDiv);
-    // $('#actorView').prepend(actorImage);
-
-
-  };
 $('img').on('click', toggleStill);
-// };
+});
+}
 
 //this should freeze pictures
 function toggleStill(){
 
-  var state   =$(this).attr('data-state');
-    if(state == 'still'){
+  var actor   =$(this).attr('data-state');
+    if(actor == 'still'){
       $(this).attr('src', $(this).data('animate'));
       $(this).attr('data-state', 'animate');
     } else {
@@ -104,7 +97,7 @@ function toggleStill(){
 
   }
 
-function renderButtons () {
+function renderButtons() {
   $('#buttonsView').empty();
 
   for (var i = 0; i < topics.length; i++) {
@@ -126,9 +119,9 @@ $('#addActor').on('click', function() {
 
   renderButtons();
 
-
   return false;
-})
+  
+});
 
 $(document).on('click', '.actor', displayActor);
 
