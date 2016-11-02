@@ -2,6 +2,8 @@
 <head>
 	<title>Movie Stars</title>
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Amethysta" rel="stylesheet">
 	<style type="text/css">
 		button, div, form, input {
 			margin: 10px;
@@ -71,29 +73,29 @@ function displayActor() {
 
       var actorImage = $("<img>");
       var imageURL = response.data[i].images.fixed_height.url;
-      console.log(imageURL);
+      // console.log(imageURL);
       actorImage.attr('src', imageURL);
       actorImage.attr('alt', 'actor image');
       actorDiv.append(actorImage);
       $('#actorView').append(actorDiv);
 };
 
-$('img').on('click', toggleStill);
+$('actorImage').on('click', toggleStill);
 });
 }
 
 //this should freeze pictures
 function toggleStill(){
 
-  var actor   =$(this).attr('data-state');
-    if(actor == 'still'){
+  var state =$(this).attr('data-state');
+    if(state == 'still'){
       $(this).attr('src', $(this).data('animate'));
       $(this).attr('data-state', 'animate');
     } else {
       $(this).attr('src', $(this).data('still'));
       $(this).attr('data-state', 'still');
     }
-    // console.log($(this).attr("src"));
+    console.log($(this).attr("src"));
 
   }
 
@@ -104,6 +106,7 @@ function renderButtons() {
 
     var a = $('<button>')
     a.addClass('actor');
+    a.addClass('btn');
     a.attr('data-name', topics[i]);
     a.text(topics[i]);
     $('#buttonsView').append(a);
@@ -119,14 +122,14 @@ $('#addActor').on('click', function() {
 
   renderButtons();
 
+
   return false;
-  
-});
+
+})
 
 $(document).on('click', '.actor', displayActor);
 
 renderButtons();
-
 
 
 </script>

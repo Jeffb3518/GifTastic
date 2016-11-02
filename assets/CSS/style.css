@@ -1,0 +1,9 @@
+.jumbotron {
+	background-image: url("../images/spotlight.png");
+	color: white;
+	font-family: 'Amethysta', serif;
+}
+
+body {
+	background-image: url("../images/gray.png");
+}
